@@ -4,7 +4,7 @@ class notify_get_updates
 {
     public function match_request($request)
 	{
-		return $request == 'notify-get-updates';
+		return qa_opt('qa_notify_enabled') && $request == 'notify-get-updates';
     }
     
     public function process_request($request)

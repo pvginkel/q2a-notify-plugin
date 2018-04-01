@@ -28,8 +28,45 @@ class notify_event_logger
 		return array();
     }
 
+    public function admin_form(&$qa_content)
+	{
+		// Process form input
+
+		$saved = false;
+
+		if (qa_clicked('qa_notify_save_button')) {
+			qa_opt('qa_notify_enabled', !!qa_post_text('qa_notify_enabled_field'));
+
+			$saved = true;
+        }
+        
+        return array(
+			'ok' => ($saved && !isset($error)) ? 'Plugin settings saved' : null,
+
+			'fields' => array(
+                array(
+					'label' => 'Activate Plugin',
+					'tags' => 'name="qa_notify_enabled_field" id="qa_notify_enabled_field"',
+					'value' => qa_opt('qa_notify_enabled'),
+					'type' => 'checkbox',
+                )
+            ),
+                
+            'buttons' => array(
+                array(
+                    'label' => 'Save Changes',
+                    'tags' => 'name="qa_notify_save_button"',
+                ),
+            )
+        );
+    }
+
     public function process_event($event, $userid, $handle, $cookieid, $params)
     {
+        if (!qa_opt('qa_notify_enabled')) {
+            return;
+        }
+        
         switch ($event) {
             case 'q_post':
             case 'a_post':

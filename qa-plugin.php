@@ -19,4 +19,4 @@ if (!defined('QA_VERSION')) { // don't allow this page to be requested directly 
 }
 
 qa_register_plugin_module('page', 'get-updates.php', 'notify_get_updates', 'Serves updates for the Q2A notifier');
-qa_register_plugin_module('event', 'event-logger.php', 'notify_event_logger', 'Event logger');
+qa_register_plugin_module('event', 'event-logger.php', 'notify_event_logger', 'Notification logger');
