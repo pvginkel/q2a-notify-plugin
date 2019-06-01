@@ -75,11 +75,12 @@ class notify_event_logger
                 $parentid = $params['parentid'];
                 $postid = $params['postid'];
                 $message = $params['text'];
-                $root = $this->get_root_post_data($parentid);
-                $rootid = $root['postid'];
-                $title = $root['title'];
 
                 if ($parentid) {
+                    $root = $this->get_root_post_data($parentid);
+                    $rootid = $root['postid'];
+                    $title = $root['title'];
+
                     $userids = $this->get_all_user_ids($postid, $parentid);
         
                     foreach ($userids as $id) {
@@ -88,7 +89,9 @@ class notify_event_logger
                         }
                     }
                 } else {
-                    $this->create_notify_feed(null, $userid, $event, $title, $message, $rootid, $postid);
+                    $title = $params['title'];
+
+                    $this->create_notify_feed(null, $userid, $event, $title, $message, null, $postid);
                 }
                 break;
 
